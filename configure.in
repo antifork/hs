@@ -1,0 +1,52 @@
+dnl
+dnl  $Id$
+dnl  autoconf file: hs
+dnl
+dnl  Copyright (c) 1999 bonelli `awgn' nicola <awgn@cosmos.it>
+dnl
+dnl  This program is free software; you can redistribute it and/or modify
+dnl  it under the terms of the GNU General Public License as published by
+dnl  the Free Software Foundation; either version 2 of the License, or
+dnl  (at your option) any later version.
+dnl
+dnl  This program is distributed in the hope that it will be useful,
+dnl  but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl  GNU General Public License for more details.
+dnl
+dnl  You should have received a copy of the GNU General Public License
+dnl  along with this program; if not, write to the Free Software
+dnl  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+dnl
+dnl  Process this file with autoconf to produce a configure script.
+
+AC_INIT(hailscan.c)
+AC_CONFIG_HEADER(config.h)
+
+dnl Checks for programs.
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+AC_PROG_CC
+
+dnl Checks for libraries.
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(string.h strings.h fcntl.h sys/time.h unistd.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_TIME
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(gettimeofday socket strerror strstr)
+
+AC_CACHE_CHECK(for libxnet, xlibnet,
+  AC_TRY_LINK(#include <sys/socket.h>
+              #include <sys/socket.h>
+              ,
+              [int i; i = socket(AF_INET,SOCK_STREAM,0); ],
+              LDFLAGS= ; echo "no",
+              LDFLAGS=-lxnet $LDFLAGS; echo "yes"
+              ))
+
+AC_OUTPUT(Makefile)
