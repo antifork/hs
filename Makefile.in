@@ -18,22 +18,23 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-CC     = @CC@ 
+CC = @CC@ 
 CFLAGS = -Wall -Wstrict-prototypes @CFLAGS@ 
-DEFS   = @DEFS@
+DEFS = @DEFS@
 LDFLAGS= @LDFLAGS@ 
-LIBS   = @LIBS@
+LIBS = @LIBS@
 INSTALL= @INSTALL@
-
-prefix      = @prefix@
+prefix = @prefix@
 exec_prefix = @exec_prefix@
-bindir      = @bindir@
+bindir = @bindir@
 
+VERSION = \"`cat VERSION`\"
 all :hs
-
 hs:
-	$(CC) $(CFLAGS) $(LDFLAGS) $(DEFS) hailscan.c -o hs   	
+	$(CC) $(CFLAGS) $(LDFLAGS) -DVERSION=$(VERSION) $(DEFS) hailscan.c -o hs   	
 clean:
-	rm -f *~ hs *.log *.cache config.h 
+	rm -Rf *~ hs *.log *.cache  
+distclean:
+	rm -Rf *~ hs *.log *.cache config.h Makefile
 install:
 	$(INSTALL) -c -m 0755 -g bin ./hs $(bindir)

@@ -40,13 +40,23 @@ AC_HEADER_TIME
 dnl Checks for library functions.
 AC_CHECK_FUNCS(gettimeofday socket strerror strstr)
 
-AC_CACHE_CHECK(for libxnet, xlibnet,
-  AC_TRY_LINK(#include <sys/socket.h>
+AC_CACHE_CHECK(for libxnet, xlibnet, AC_TRY_LINK(#include <sys/socket.h>
               #include <sys/socket.h>
-              ,
-              [int i; i = socket(AF_INET,SOCK_STREAM,0); ],
+              ,[int i; i = socket(AF_INET,SOCK_STREAM,0); ],
               LDFLAGS= ; echo "no",
-              LDFLAGS=-lxnet $LDFLAGS; echo "yes"
-              ))
+              LDFLAGS=-lxnet $LDFLAGS; echo "yes" ))
+
+# check for headers
+
+AH_TEMPLATE([HAVE_BSD_SYS_QUEUE_H],
+[define if the sys/queue.h BSD header is present
+])
+
+AC_CHECK_HEADERS(sys/queue.h, [AC_EGREP_CPP(have_bsd_sys_queue, [
+#include <sys/queue.h>
+#ifdef SLIST_HEAD
+  have_bsd_sys_queue
+#endif
+], AC_DEFINE([HAVE_BSD_SYS_QUEUE_H]))])
 
 AC_OUTPUT(Makefile)

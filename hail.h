@@ -77,17 +77,10 @@ See AC_HEADER_TIME in 'info autoconf'
 #include <errno.h>
 
 
-#define SERVICES 	"/etc/services"
-#define VERSION 	"2.5"
+#define SETB(buff,x)    (buff[x >> 3] |= (1 << (x & 7)))
+#define CHKB(buff,x)    (buff[x >> 3] &  (1 << (x & 7)))
 
-#define preset(x)       allsv [x / 8] |= (0x01 << (x % 8))
-#define setbit(x)       ports [x / 8] |= (0x01 << (x % 8))
-#define checkbit(x)     ports [x / 8] &  (0x01 << (x % 8))
 #define msec(x)        	(usleep(1000*x))
-
-#define _TIMEOUT_	0
-#define _ESTABLISHED_	1
-#define _REFUSED_	2
 
 #define O_NOVERB	0x01
 #define O_DEBUG		0x02
@@ -96,7 +89,6 @@ See AC_HEADER_TIME in 'info autoconf'
 
 
 /* 
-
  * structure of ports loaded in 8192 bytes.          
  * 
  * ------------------------------------------------------------------- 
@@ -104,30 +96,22 @@ See AC_HEADER_TIME in 'info autoconf'
  * ------------------------------------------------------------------- 
  * .. ..  19 18 17 | 16 15 14 13 12 11 10  9 |  8  7  6  5  4  3  2  1|
  * -------------------------------------------------------------------
- *              
  * 
  */
 
+#define S_BINDED	0x01
 
+#define S_TIMEOUT       0
+#define S_ESTABLISHED   1
+#define S_REFUSED       2
 
 typedef struct _sweep_ {
-	int             socket;
 	char            addr[80];
+	struct sockaddr_in sa;
 	long            host;
-	int             port;
 	long            sec;
 	long            usec;
+        int             socket;
+        int             port;
+	int		status;	
 } Sweep;
-
-typedef struct _database_ {
-	int             port;
-	char            description[16];
-	struct _database_ *next;
-
-} Database;
-
-typedef struct _hostname_ {
-	unsigned long int s_addr;
-	char            addr[80];
-	struct _hostname_ *next;
-} Hostname;
