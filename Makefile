@@ -1,4 +1,3 @@
-# Generated automatically from Makefile.in by configure.
 #
 # $Id$
 # hailscan
@@ -19,22 +18,23 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-CC     = gcc 
+CC = gcc 
 CFLAGS = -Wall -Wstrict-prototypes -g -O2 
-DEFS   = -DHAVE_CONFIG_H
+DEFS = -DHAVE_CONFIG_H
 LDFLAGS=  
-LIBS   = 
-INSTALL= /usr/bin/ginstall -c
-
-prefix      = /usr/local
+LIBS = 
+INSTALL= /bin/install -c
+prefix = /usr/local
 exec_prefix = ${prefix}
-bindir      = ${exec_prefix}/bin
+bindir = ${exec_prefix}/bin
 
+VERSION = \"`cat VERSION`\"
 all :hs
-
 hs:
-	$(CC) $(CFLAGS) $(LDFLAGS) $(DEFS) hailscan.c -o hs   	
+	$(CC) $(CFLAGS) $(LDFLAGS) -DVERSION=$(VERSION) $(DEFS) hailscan.c -o hs   	
 clean:
-	rm -f *~ hs *.log *.cache config.h 
+	rm -Rf *~ hs *.log *.cache  
+distclean:
+	rm -Rf *~ hs *.log *.cache config.h Makefile
 install:
 	$(INSTALL) -c -m 0755 -g bin ./hs $(bindir)

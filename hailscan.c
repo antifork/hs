@@ -3,7 +3,7 @@
  *  H A I L S C A N . C
  *
  *  Copyright (c) 1999 `awgn' <awgn@cosmos.it>
- *            (c) 2002 Bonelli Nicola <bonelli@blackhats.it>
+ *            (c) 2002 Bonelli Nicola <bonelli@antifork.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
