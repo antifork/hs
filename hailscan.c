@@ -38,15 +38,15 @@ char            ports[8192],
 
 static char     unknown[]="unknown";
 
-long int        vhost = 0;
+long int        vhost;
 
 int   		portcount 	= 1,
                 timeout         = 25,
                 nsock           = 32,
-                sockcount 	= 0,
-                lpause 		= 0,
-		opts            = 0,
-        	lport 		= 0;
+                sockcount,
+                lpause,
+		opts,
+        	lport;
 
 
 struct sockaddr_in newsock;

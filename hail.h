@@ -80,9 +80,9 @@ See AC_HEADER_TIME in 'info autoconf'
 #define SERVICES 	"/etc/services"
 #define VERSION 	"2.5"
 
-#define preset(x)       ((x % 8) ? (allsv [x / 8] |= (0x01 << ((x % 8) - 1))) : (allsv [(x / 8) - 1] |= 0x80))
-#define setbit(x)       ((x % 8) ? (ports [x / 8] |= (0x01 << ((x % 8) - 1))) : (ports [(x / 8) - 1] |= 0x80))
-#define checkbit(x)     ((x % 8) ? (ports [x / 8] &  (0x01 << ((x % 8) - 1))) : (ports [(x / 8) - 1] &  0x80))
+#define preset(x)       allsv [x / 8] |= (0x01 << (x % 8))
+#define setbit(x)       ports [x / 8] |= (0x01 << (x % 8))
+#define checkbit(x)     ports [x / 8] &  (0x01 << (x % 8))
 #define msec(x)        	(usleep(1000*x))
 
 #define _TIMEOUT_	0
